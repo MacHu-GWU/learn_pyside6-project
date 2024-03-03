@@ -50,4 +50,6 @@
 
 Welcome to ``learn_pyside6`` Documentation
 ==============================================================================
+.. image:: https://learn-pyside6.readthedocs.io/en/latest/_static/learn_pyside6-logo.png
+
 本项目是我在学习 QT 从入门到精通 (现在还谈不上精通) 的过程中的文档. 致力于让我自己能快速的回顾和查找, 也希望能帮助到其他人.
