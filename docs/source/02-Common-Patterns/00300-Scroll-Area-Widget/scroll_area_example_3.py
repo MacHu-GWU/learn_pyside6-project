@@ -1,75 +1,74 @@
 # -*- coding: utf-8 -*-
 
 """
-这个例子把三个 QScrollArea Widget 叠加到一起, 两个 widget 嵌入在一个 widget 中.
+这个例子演示了如何把 ScrollArea 和其他的 Widget 结合起来放在一起. 使得不是整个窗口
+都是滚动区域, 而是只有一部分是滚动区域.
+
+在这个例子中, 我们在 QScrollArea Widget 的上面和下面分别放了很多 QLabel Widget,
+并且设定只有 QScrollArea 能够滚动.
+
+这个例子沿用了上一个例子中的代码设计.
 """
 
-from PySide6.QtWidgets import (
-    QWidget,
-    QLabel,
-    QScrollArea,
-    QVBoxLayout,
-    QMainWindow,
-)
-from PySide6.QtCore import Qt
 from PySide6 import QtWidgets
-import sys
 
 
-class MainWindow(QMainWindow):
-    def create_inner_scroll_area_wgt(self, ith: int) -> QScrollArea:
-        """
-        Create a scroll area widget with a collection of label widget.
-        """
-        inner_scroll_area_wgt = QScrollArea()
-        inner_scroll_area_wgt.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        inner_scroll_area_wgt.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        inner_scroll_area_wgt.setMaximumHeight(400)
+class ScrollAreaContentWidget(QtWidgets.QWidget):
+    """
+    由于你必须为 Scroll Area 额外创建一个 Widget 作为容器, 并且 Scroll Area 的 Layout
+    其实是在这个容器中完成的, 所以我们单独为 Scroll Area 创建了一个类.
+    """
 
-        inner_area_content_wgt = QWidget()
-        list_of_label_wgt = list()
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.main_lay = QtWidgets.QVBoxLayout()
         n = 50
         for i in range(1, 1 + n):
-            label_wgt = QLabel(f"Inner Scroll Area Label {ith} - {i}")
-            list_of_label_wgt.append(label_wgt)
+            label_wgt = QtWidgets.QLabel(f"TextLabel {i}")
+            self.main_lay.addWidget(label_wgt)
+        self.setLayout(self.main_lay)
 
-        # The Vertical Box that contains the collection of label widget
-        inner_area_content_wgt_lay = QVBoxLayout()
-        for label_wgt in list_of_label_wgt:
-            inner_area_content_wgt_lay.addWidget(label_wgt)
-        inner_area_content_wgt.setLayout(inner_area_content_wgt_lay)
 
-        # The scroll area only contains one widget, which is the "inner_area_content_wgt"
-        inner_scroll_area_wgt.setWidget(inner_area_content_wgt)
+class MainWidget(QtWidgets.QWidget):
+    """
+    这是 App 主窗口中所有的 Widget 的容器.
+    """
 
-        return inner_scroll_area_wgt
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.main_lay = QtWidgets.QVBoxLayout()
 
+        # before scroll area
+        for i in range(1, 1 + 10):
+            label_wgt = QtWidgets.QLabel(f"Before Text Label {i}")
+            self.main_lay.addWidget(label_wgt)
+
+        # Create a widget as a container for all other widgets in the scroll area
+        self.scroll_area_wgt = QtWidgets.QScrollArea()
+        self.scroll_area_content_wgt = ScrollAreaContentWidget(self)
+        self.scroll_area_wgt.setWidget(self.scroll_area_content_wgt)
+        self.main_lay.addWidget(self.scroll_area_wgt)
+
+        # after scroll area
+        for i in range(1, 1 + 10):
+            label_wgt = QtWidgets.QLabel(f"After Text Label {i}")
+            self.main_lay.addWidget(label_wgt)
+
+        self.setLayout(self.main_lay)
+
+
+class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        # ----------------------------------------------------------------------
-        # declare widgets
-        # ----------------------------------------------------------------------
-        self.inner_scroll_area_wgt_1 = self.create_inner_scroll_area_wgt(1)
-        self.inner_scroll_area_wgt_2 = self.create_inner_scroll_area_wgt(2)
 
-        self.outer_scroll_area_wgt = QScrollArea()
-        self.outer_scroll_area_wgt.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.outer_scroll_area_wgt.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.outer_scroll_area_wgt.setMaximumHeight(600)
+        self.set_widget()
+        self.set_window()
 
-        self.outer_scroll_area_content_wgt = QWidget()
-        self.outer_scroll_area_content_wgt_lay = QVBoxLayout()
-        self.outer_scroll_area_content_wgt_lay.addWidget(self.inner_scroll_area_wgt_1)
-        self.outer_scroll_area_content_wgt_lay.addWidget(self.inner_scroll_area_wgt_2)
+    def set_widget(self):
+        self.main_wgt = MainWidget(self)
 
-        self.outer_scroll_area_content_wgt.setLayout(self.outer_scroll_area_content_wgt_lay)
-
-        self.outer_scroll_area_wgt.setWidget(self.outer_scroll_area_content_wgt)
-        # ----------------------------------------------------------------------
-        # Set Window
-        # ----------------------------------------------------------------------
-        # The set the "main_wgt_scroll_area" as central widget in App window
-        self.setCentralWidget(self.outer_scroll_area_wgt)
+    def set_window(self):
+        self.setCentralWidget(self.main_wgt)
 
         # Set window property
         self.setGeometry(
@@ -78,11 +77,13 @@ class MainWindow(QMainWindow):
             int(screen_width * 0.5),  # w, 50% screen width
             int(screen_height * 0.5),  # h, 50% screen height
         )
-        self.setWindowTitle("Nested Scroll Area Demonstration")
+        self.setWindowTitle("Scroll Area Demonstration")
         self.show()
 
 
 if __name__ == "__main__":
+    import sys
+
     app = QtWidgets.QApplication(sys.argv)
     screen_width, screen_height = app.screens()[0].size().toTuple()
     main = MainWindow()

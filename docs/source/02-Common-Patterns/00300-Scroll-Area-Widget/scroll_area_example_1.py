@@ -1,54 +1,46 @@
 # -*- coding: utf-8 -*-
 
 """
-这是一个用于演示如何使用 ``QScrollArea`` 来创建一个内容很长, 需要用滚动区域来限制大小的例子.
-在这个例子中我们的 App 只有一个 ``QScrollArea`` Widget, 里面包含了一堆 ``QLabel`` Widget.
+这是一个用于演示如何使用 ``QScrollArea`` 来创建一个可以滚动的区域的例子.
+
+在这个例子中我们的 App 的主窗口中只有一个 ``QScrollArea`` (scroll_area_wgt) Widget.
+里面必须包含有且只有一个作为容器的 ``QWidget`` (scroll_area_content_wgt). 所有你想要放在
+Scroll Area 中的 widget 都需要被添加到 scroll_area_content_wgt 的 Layout 中. 注意,
+不是直接添加到 scroll_area_wgt 中. 最后调用 ``scroll_area_wgt.setWidget(scroll_area_content_wgt)``
+方法将 scroll_area_content_wgt 作为唯一的 widget 添加到 scroll_area_wgt 中既可.
+
+Reference:
+
+- https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QScrollArea.html
 """
 
-from PySide6.QtWidgets import (
-    QWidget,
-    QLabel,
-    QScrollArea,
-    QVBoxLayout,
-    QMainWindow,
-)
-from PySide6.QtCore import Qt
-from PySide6 import QtWidgets
-import sys
+from PySide6 import QtWidgets, QtCore
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        # ----------------------------------------------------------------------
-        # declare widgets
-        # ----------------------------------------------------------------------
-        # Scroll Area which contains the widgets, set as the centralWidget
-        self.main_wgt_scroll_area = QScrollArea()
-        self.main_wgt_scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.main_wgt_scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.main_wgt_scroll_area.setWidgetResizable(True)
 
-        self.list_of_label_wgt = list()
+        # Create a widget as a container for all other widgets in the scroll area
+        self.scroll_area_content_wgt = QtWidgets.QWidget(self)
+        self.scroll_area_content_wgt_lay = QtWidgets.QVBoxLayout()
+        # add lots of widgets to the scroll area content widget
         n = 50
         for i in range(1, 1 + n):
-            label_wgt = QLabel(f"TextLabel {i}")
-            self.list_of_label_wgt.append(label_wgt)
+            label_wgt = QtWidgets.QLabel(f"TextLabel {i}")
+            self.scroll_area_content_wgt_lay.addWidget(label_wgt)
+        self.scroll_area_content_wgt.setLayout(self.scroll_area_content_wgt_lay)
 
-        # Widget that contains the collection of label widget
-        self.label_list_wgt = QWidget()
+        # Create a Scroll Area widget
+        self.main_wgt_scroll_area = QtWidgets.QScrollArea()
 
-        # ----------------------------------------------------------------------
-        # declare layouts
-        # ----------------------------------------------------------------------
-        # The Vertical Box that contains the collection of label widget
-        self.label_list_wgt_lay = QVBoxLayout()
-        for label_wgt in self.list_of_label_wgt:
-            self.label_list_wgt_lay.addWidget(label_wgt)
-        self.label_list_wgt.setLayout(self.label_list_wgt_lay)
+        # You can configure Scroll Area behavior with the following methods
+        # self.main_wgt_scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        # self.main_wgt_scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        # self.main_wgt_scroll_area.setWidgetResizable(True)
 
-        # The scroll area only contains one widget, which is the "label_list_wgt"
-        self.main_wgt_scroll_area.setWidget(self.label_list_wgt)
+        # Set the scroll area content widget as the scroll area only contains one widget, which is the "label_list_wgt"
+        self.main_wgt_scroll_area.setWidget(self.scroll_area_content_wgt)
 
         # ----------------------------------------------------------------------
         # Set Window
@@ -68,6 +60,8 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
+    import sys
+
     app = QtWidgets.QApplication(sys.argv)
     screen_width, screen_height = app.screens()[0].size().toTuple()
     main = MainWindow()

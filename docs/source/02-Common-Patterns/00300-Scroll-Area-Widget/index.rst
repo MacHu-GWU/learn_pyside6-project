@@ -1,8 +1,8 @@
 Scroll Area Widget
 ==============================================================================
-在竖着排列所有 Widget 的过程中, 很可能一个窗口是无法放下所有的 Widget 的, 这时就要用到 ``QScrollArea`` 这个 Widget.
+这是一个用于演示如何使用 ``QScrollArea`` 来创建一个可以滚动的区域.
 
-使用这个 ``scroll_area_widget = QScrollArea(...)`` 的关键是你需要把所有想要放在这个 Scroll Area 中的 Widget 专门放在一个单独的 ``scroll_area_content_widget = QWidget(...)`` 容器中. 你用 ``scroll_area_content_widget.setLayout(...)`` 方法对这个 Widget 进行布局. 然后用 ``scroll_area_widget.setWidget(scroll_area_content_widget)`` 方法把这个 ``scroll_area_content_widget`` 放到 ``scroll_area_widget`` 中.
+有的时候一个窗口是无法放下所有的 Widget 的, 这时就要用到 ``QScrollArea`` 这个 Widget. ``QScrollArea`` 本质上是一个大小有限制的矩形区域, 里面的元素如果超过了这个区域则会自动出现滚动条. ``QScrollArea`` 在 GUI 中非常有用. 它不仅能滚动整个 App 的窗口, 也可以把作为一个小的滚动区域跟其他的 Widget 放在一起.
 
 .. dropdown:: scroll_area_example_1.py
 
@@ -17,6 +17,12 @@ Scroll Area Widget
        :linenos:
 
 .. dropdown:: scroll_area_example_3.py
+
+    .. literalinclude:: ./scroll_area_example_2.py
+       :language: python
+       :linenos:
+
+.. dropdown:: scroll_area_example_4.py
 
     .. image:: ./nested-scroll-area.png
 
