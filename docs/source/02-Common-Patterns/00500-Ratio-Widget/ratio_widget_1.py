@@ -28,7 +28,7 @@ class MainWidget(QtWidgets.QWidget):
         self.ratio_2_wgt = QtWidgets.QRadioButton("label 1-2", self)
         self.ratio_2_wgt.toggled.connect(self.on_ratio_toggled_handler)
 
-        self.main_lay = QtWidgets.QHBoxLayout()  # Vertical Box layout
+        self.main_lay = QtWidgets.QHBoxLayout()  # Horizontal Box layout
         self.main_lay.addWidget(self.ratio_1_wgt)
         self.main_lay.addWidget(self.ratio_2_wgt)
         self.setLayout(self.main_lay)
