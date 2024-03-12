@@ -112,7 +112,6 @@ Gesture
 - `QTapAndHoldGesture <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTapAndHoldGesture.html>`_: 点击长按.
 
 
-
 Other
 ------------------------------------------------------------------------------
 - `QToolTip <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QToolTip.html>`_: 一个小的提示框, 用于显示提示信息.

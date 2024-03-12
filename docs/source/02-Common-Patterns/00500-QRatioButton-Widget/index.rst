@@ -1,5 +1,7 @@
-Radio Widget
+QRadioButton Widget
 ==============================================================================
+keywords: QRadioButton, RadioButton, Radio Button
+
 Radio Widget 是单选按钮控件. 可以提供一组选项, 但是只允许用户选择一个.
 
 .. dropdown:: ratio_widget_1.py

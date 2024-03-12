@@ -1,5 +1,7 @@
 QLineEdit Widget
 ==============================================================================
+keywords: QLineEdit, LineEdit, Line Edit
+
 Line Edit Widget 是最简单的用于跟用户交互的输入控件. 它允许用户输入单行文本.
 
 它有这么几个 Signal:
