@@ -1,6 +1,6 @@
 Widgets Overview
 ==============================================================================
-本文总结了常用 Widgets.
+本文总结了常用 `Widgets <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/#list-of-classes>`_.
 
 
 Display Information
@@ -11,10 +11,12 @@ Display Information
 - `QTextBrowser <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTextBrowser.html>`_: 显示多行富文本, 但是不可编辑.
 - `QListWidget <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QListWidget.html>`_: 用于显式列表数据. 例如文件浏览器中的文件列表, dropdown 中的数据列表等.
 - `QListWidgetItem <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QListWidgetItem.html>`_: QListWidget 中的 item 的容器.
-- `QListView <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QListView.html>`_: 这是一个抽象的 list 的试图, 他是 QListWidget 的父类. 换言之 QListWidget 是封装号的 QListView, 更容易使用. 而如果你需要对其进行复杂的自定义, 那么建议使用 QListView.
+- `QListView <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QListView.html>`_: 这是一个抽象的 list 的试图, 他是 QListWidget 的父类. 换言之 QListWidget 是封装好的 QListView, 更容易使用. 而如果你需要对其进行复杂的自定义, 那么建议使用 QListView.
 - `QTableWidget <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTableWidget.html>`_: 用于显式二维表数据.
 - `QTableWidgetItem <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTableWidgetItem.html>`_: QTableWidget 中的 item 的容器.
 - `QTableView <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTableView.html>`_: 和 QListView 类似, 它是 QTableWidget 的父类. 如果你要复杂的自定义功能, 那么建议使用 QTableView.
+- `QTreeWidget <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTreeWidget.html>`_: 类似于文件浏览器的树形结构.
+- `QTreeWidgetItem <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTreeWidgetItem.html>`_: QTreeWidget 中的 item 的容器.
 - 关于图像, 视频等内容的显式, 不属于 Widgets 的范畴, 请参考 `QtGui <https://doc.qt.io/qtforpython-6/PySide6/QtGui/index.html>`_ 一节的内容.
 
 
@@ -58,7 +60,7 @@ Layout
 - `QHBoxLayout <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QHBoxLayout.html>`_: 水平布局, 将 widget 水平排列.
 - `QGridLayout <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QGridLayout.html>`_: 网格布局, 将 widget 按照网格排列.
 - `QFormLayout <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QFormLayout.html>`_: 表单布局, 将 widget 按照表单排列. 本质上是一个两列的 ``QGridLayout``.
-- `QWidgetItem <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QWidgetItem.html>`_: 虽然它是一个 widget, 在使用起来更像是一个 layout, 专门用于把很多 widget 按照一定的 layout 组织在一起. 以避免复杂的嵌套.
+- `QWidgetItem <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QWidgetItem.html>`_: 虽然它是一个 widget, 在使用起来更像是一个 layout, 专门用于把很多 widget 按照一定的 layout 组织在一起. 以避免复杂的嵌套. **你最好不要直接使用这个类**, 直接用 ``QLayout.setWidget`` 或是 ``QLayout.setLayout`` 方法既可.
 
 
 GUI
@@ -66,6 +68,7 @@ GUI
 - `QMainWindow <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMainWindow.html>`_: 一个 GUI 通常要有一个主要的窗口.
 - `QMenu <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMenu.html>`_: 用于实现操作系统上的菜单 (通常位于顶部).
 - `QMenuBar <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMenuBar.html>`_: 用于实现操作系统上的一条菜单栏 (通常位于顶部).
+- `QSystemTrayIcon <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QSystemTrayIcon.html>`_: 这个是 Window 右下方的任务栏, 或是 Mac 右上方的任务栏. 你可以将 QMenu 添加到这里.
 - `QDockWidget <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QDockWidget.html>`_: 一个可以悬停在窗口上的 widget.
 
 
@@ -95,6 +98,19 @@ Message
 ------------------------------------------------------------------------------
 - `QMessageBox <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMessageBox.html>`_: 一个消息弹窗. 通常带有一个 OK 按钮使得你可以关闭它. 你也可以设置延时自动关闭.
 - `QErrorMessage <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QErrorMessage.html>`_: 和 QMessageBox 项比, 它多了一个 "Show this message again " 的 checkbox 选项. 常用于显示错误信息.
+
+
+Gesture
+------------------------------------------------------------------------------
+一些特殊的鼠标手势操作. 例如长按, 左右扫动等, 你可以为这些操作设置特定的 handler. 关于 Gesture 的更多信息请参考 `Gestures in Widgets and Graphics View <https://doc.qt.io/qtforpython-6/overviews/gestures-overview.html#gestures-in-widgets-and-graphics-view>`_.
+
+- `QGesture <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QGesture.html>`_:
+- `QPanGesture <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QPanGesture.html>`_: 手指移动一定距离就是 Pan.
+- `QPinchGesture <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QPinchGesture.html>`_: 两个手指捏着靠近或者远离.
+- `QSwipeGesture <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QSwipeGesture.html>`_: 手指朝着某个方向滑动.
+- `QTapGesture <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTapGesture.html>`_: 轻轻点击.
+- `QTapAndHoldGesture <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTapAndHoldGesture.html>`_: 点击长按.
+
 
 
 Other

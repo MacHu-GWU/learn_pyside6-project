@@ -1,6 +1,6 @@
 QMessage Widget
 ==============================================================================
-`QMessage <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMessageBox.html>`_ 是一个消息弹窗, 用于显示一些消息, 通知, 警告等.
+`QMessage <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMessageBox.html>`_ 是一个消息弹窗, 用于显示一些消息, 通知, 警告等. 本质上是一个 Dialog.
 
 
 Examples

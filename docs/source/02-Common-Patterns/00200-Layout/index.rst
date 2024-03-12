@@ -26,7 +26,6 @@ Examples
        :linenos:
 
 
-
 Reference
 ------------------------------------------------------------------------------
 - `Layout Management <https://doc.qt.io/qtforpython-6/overviews/layout.html>`_: Pyside6 中官方对于 Layout 的介绍.
