@@ -91,6 +91,11 @@ Wizard
 - `QWizardPage <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QWizardPage.html>`_: 用于实现 wizard 的页面. 本质上是一个容器.
 
 
+Message
+------------------------------------------------------------------------------
+- `QMessageBox <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMessageBox.html>`_: 一个消息弹窗. 通常带有一个 OK 按钮使得你可以关闭它. 你也可以设置延时自动关闭.
+- `QErrorMessage <https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QErrorMessage.html>`_: 和 QMessageBox 项比, 它多了一个 "Show this message again " 的 checkbox 选项. 常用于显示错误信息.
+
 
 Other
 ------------------------------------------------------------------------------
